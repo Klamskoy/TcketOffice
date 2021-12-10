@@ -1,9 +1,11 @@
 ﻿@page "/"
+@inject NavigationManager navigationManager
 
- 
+
 <div class="row" style="margin-left: 200px; margin-top: 300px; margin-right: 200px ;background-color: lightblue">
     <div class="col-2" style="margin-left: auto">
         <h3 style="text-align:center">Откуда?</h3>
+
         <RadzenDropDownDataGrid TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                                 AllowFiltering="true" AllowClear="true"
                                 Data="availableCities" Style="width:100%;height: 50px;" />
@@ -25,8 +27,10 @@
                                 Data="@ticketClasses" Style="width:100%; height: 50px; text-align: center;" />
     </div>
     <div class="col-2" style="margin-right:auto">
-         <h3><br /></h3>
-        <RadzenButton Text="Поиск" Style="width: 100%; height: 50px; text-align: center; background-color:deepskyblue" ></RadzenButton>
+        <h3><br /></h3>
+        @*<RadzenButton Text="Поиск" Style="width: 100%; height: 50px; text-align: center; background-color:deepskyblue"
+                      @onclick="ShowCounter"></RadzenButton>*@
+        <button class="btn btn-primary" @onclick="ShowCounter">Click me</button>
     </div>
 </div>
 
@@ -38,4 +42,10 @@
 
     List<string> ticketClasses = new List<string>() { "Первый класс", "Бизнес-класс", "Эконом-класс" };
 
-}
+
+
+    private void ShowCounter()
+    {
+        navigationManager.NavigateTo("profile");
+    }
+    }
