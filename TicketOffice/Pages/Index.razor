@@ -19,9 +19,10 @@
                                 @bind-Value ="PointOfDestination"/>
     </div>
     <div class="col-2">
+
         <h3 style="text-align:center">Когда?</h3>
-        <RadzenDatePicker TValue="DateTime" DateRender=@DateRender DateFormat="d" Style="width: 100%;
-                                height: 50px;" @bind-Value="Date"></RadzenDatePicker>
+        <input type="date" min=DateTime.Today value ="" style="width:100%; height:50px; border:hidden; border-radius: 4px; outline:none;" />
+        @*<RadzenDatePicker Style="" TValue="DateTime" DateRender=@DateRender DateFormat="d"  @bind-Value="Date"></RadzenDatePicker>*@
     </div>
     <div class="col-2">
         <h3 style="text-align:center">Каким классом?</h3>
