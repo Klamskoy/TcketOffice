@@ -21,7 +21,7 @@
     <div class="col-2">
 
         <h3 style="text-align:center">Когда?</h3>
-        <input type="date" min="valueAsDate" value="valueAsDate" style="width:100%; height:50px; border:hidden; border-radius: 4px; outline:none;" />
+        <input type="date" min ="@today.ToString("yyyy-MM-dd")" value="@today.ToString("yyyy-MM-dd")" style="width:100%; height:50px; border:hidden; border-radius: 4px; outline:none;" />
         @*<RadzenDatePicker Style="" TValue="DateTime" DateRender=@DateRender DateFormat="d"  @bind-Value="Date"></RadzenDatePicker>*@
     </div>
     <div class="col-2">
@@ -42,6 +42,7 @@
 
 
 @code{
+    DateTime today = DateTime.Today;
     public string PointOfDestination { get; set; }
     public string PointOfDeparture { get; set; }
     public DateTime Date { get; set; }
