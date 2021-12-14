@@ -21,8 +21,14 @@
     <div class="col-2">
 
         <h3 style="text-align:center">Когда?</h3>
-        <input type="date" min ="@today.ToString("yyyy-MM-dd")" value="@today.ToString("yyyy-MM-dd")" style="width:100%; height:50px; border:hidden; border-radius: 4px; outline:none;" />
-        @*<RadzenDatePicker Style="" TValue="DateTime" DateRender=@DateRender DateFormat="d"  @bind-Value="Date"></RadzenDatePicker>*@
+        <input type="date" min ="@today.ToString("yyyy-MM-dd")" value="@today.ToString("yyyy-MM-dd")"
+               style="width:100%; height:50px; border:hidden; border-radius: 4px; outline:none;"  />
+
+
+        
+
+
+
     </div>
     <div class="col-2">
         <h3 style="text-align:center">Каким классом?</h3>
@@ -34,15 +40,13 @@
     <div class="col-2" style="margin-right:auto">
         <h3><br /></h3>
         <button class="btn btn-primary" @onclick="SearchButtonAction">Search</button>
-        @*<RadzenButton Text="Поиск" Style="width: 100%; height: 50px; text-align: center; background-color:deepskyblue"
-                      @onclick="SearchButtonAction"></RadzenButton>*@
-        
     </div>
 </div>
 
 
 
 @code{
+    
     DateTime today = DateTime.Today;
     public string PointOfDestination { get; set; }
     public string PointOfDeparture { get; set; }
@@ -63,6 +67,8 @@
         args.Disabled = dates.Contains(args.Date.AddDays(DateTime.Today.ToOADate()));
 
     }
+
+    
 
     private void SearchButtonAction()
     {
