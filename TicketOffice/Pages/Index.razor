@@ -33,8 +33,9 @@
     </div>
     <div class="col-2" style="margin-right:auto">
         <h3><br /></h3>
-        <RadzenButton Text="Поиск" Style="width: 100%; height: 50px; text-align: center; background-color:deepskyblue"
-                      @onclick="SearchButtonAction"></RadzenButton>
+        <button class="btn btn-primary" @onclick="SearchButtonAction">Search</button>
+        @*<RadzenButton Text="Поиск" Style="width: 100%; height: 50px; text-align: center; background-color:deepskyblue"
+                      @onclick="SearchButtonAction"></RadzenButton>*@
         
     </div>
 </div>
@@ -52,7 +53,7 @@
 
     List<string> ticketClasses = new List<string>() { "Первый класс", "Бизнес-класс", "Эконом-класс" };
 
-    bool IsUserLogged;
+    bool IsUserLogged = true;
 
     //реализовать выборку даты только с сегодняшнего дня
     IEnumerable<DateTime> dates = new DateTime[] { DateTime.Today.AddDays(-1), DateTime.Today.AddDays(-1)};
@@ -65,18 +66,14 @@
 
     private void SearchButtonAction()
     {
-        if(IsUserLogged)
-        {
+
             var client = new MongoClient("mongodb://localhost");
             var database = client.GetDatabase("TicketOffice");
             var collection = database.GetCollection<Ticket>("Tickets");
             Ticket ticket = new Ticket(PointOfDeparture, PointOfDestination, Date, ClassType);
             collection.InsertOneAsync(ticket);
-
-        }
-        else
-        {
             navigationManager.NavigateTo("profile");
-        }
+
+
     }
     }

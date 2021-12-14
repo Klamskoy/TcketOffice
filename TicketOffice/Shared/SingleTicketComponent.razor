@@ -1,0 +1,16 @@
+﻿
+<div class="containter" style="margin-left:auto; margin-right:auto; background-color:bisque">
+    <h3>Ticket</h3>
+    <h4>Откуда: @ticket.PointOfDeparture</h4>
+    <h4>Куда: @ticket.PointOfDestination</h4>
+    <h4>Когда: @ticket.Date.ToString("dd.MM.yyyy")</h4>
+    <h4>Класс полета: @ticket.ClassType</h4>
+</div>
+
+
+
+@code {
+
+    [Parameter] public Ticket ticket { get; set; }
+
+}
