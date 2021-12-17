@@ -1,0 +1,67 @@
+﻿@page "/addflight"
+@inject NavigationManager navManager
+
+
+<h2 style="text-align:center">Добавить рейс</h2>
+<div style="margin-left:500px; margin-right:500px;">
+    <input class="form-control form-control-lg" type="text" placeholder="Номер рейса" style="margin-bottom:10px"
+           @bind-value="FlightNumber">
+    <input class="form-control form-control-lg" list="datalistOptions1" id="DataList1" placeholder="Пункт отправления"
+           @bind-value="PointOfDeparture" style="margin-bottom:10px;"/>
+    <datalist id="datalistOptions1">
+        @foreach (var item in availableCities)
+        {
+            <option value="@item" />
+        }
+    </datalist>
+    <input class="form-control form-control-lg" list="datalistOptions2" id="DataList2" placeholder="Пункт назначения"
+           @bind-value="PointOfDestination" style="margin-bottom:10px;"/>
+    <datalist id="datalistOptions2">
+        @foreach (var item in availableCities)
+        {
+            <option value="@item" />
+        }
+    </datalist>
+    <input type="date" min="@today.ToString("yyyy-MM-dd")" @bind-value="Date"
+           style="width: 100%; height: 50px; border: hidden; border-radius: 4px; outline: none; text-align: center; margin-bottom: 10px" />
+    <input type="time" min="@today.ToString("hh:mm")" @bind-value="Time"
+           style="width: 100%; height: 50px; border: hidden; border-radius: 4px; outline: none; text-align: center; margin-bottom: 10px" />
+    <input class="form-control form-control-lg" list="datalistOptions3" id="DataList3" placeholder="Класс полёта"
+           @bind-value="ClassType" style="margin-bottom:10px;"/>
+    <datalist id="datalistOptions3">
+        @foreach (var item in ticketClasses)
+        {
+            <option value="@item" />
+        }
+    </datalist>
+    <button class="btn btn-primary" style="position:relative; left:40%" @onclick="AddToDatabase">Добавить</button>
+</div>
+
+
+
+
+@code {
+    List<string> availableCities = new List<string>() { "Москва", "Санкт-Петербург", "Казань", "Краснодар" };
+
+    List<string> ticketClasses = new List<string>() { "Первый класс", "Бизнес-класс", "Эконом-класс" };
+
+    DateTime today = DateTime.Today;
+    DateTime currentHour = DateTime.UtcNow;
+    public string FlightNumber { get; set; }
+    public string PointOfDeparture { get; set; }
+    public string PointOfDestination { get; set; }
+    public DateTime Date { get; set; } = DateTime.Today;
+    public DateTime Time { get; set; }
+    public string ClassType { get; set; }
+
+    private void AddToDatabase()
+    {
+        var client = new MongoClient("mongodb://localhost");
+        var database = client.GetDatabase("TicketOffice");
+        var collection = database.GetCollection<Flight>("Flights");
+        Flight flight = new Flight(FlightNumber, PointOfDeparture, PointOfDestination, Date, Time, ClassType);
+        collection.InsertOneAsync(flight);
+        navManager.NavigateTo("flights");
+    }
+
+}

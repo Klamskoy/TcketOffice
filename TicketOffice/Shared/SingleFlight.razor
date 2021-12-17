@@ -1,0 +1,24 @@
+﻿<td>@flight.FlightNumber</td>
+<td>@flight.PointOfDeparture</td>
+<td>@flight.PointOfDestination</td>
+<td>@flight.Date.ToString("dd.MM.yyyy")</td>
+<td>@flight.Time.ToString("hh:mm")</td>
+<td>@flight.ClassType</td>
+
+<td><button class="btn btn-primary" @onclick="Buy">Купить</button></td>
+@code {
+
+    [Parameter] public Flight flight { get; set; }
+
+    private void Buy()
+    {
+        Ticket ticket = new Ticket(flight.FlightNumber, flight.PointOfDeparture, flight.PointOfDestination, flight.Date, flight.Time, flight.ClassType);
+
+        var client = new MongoClient("mongodb://localhost");
+        var database = client.GetDatabase("TicketOffice");
+        var collection = database.GetCollection<Ticket>("Tickets");
+        collection.InsertOne(ticket);
+
+
+    }
+}

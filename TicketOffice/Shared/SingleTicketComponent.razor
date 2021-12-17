@@ -3,7 +3,7 @@
     <h3>Ticket</h3>
     <h4>Откуда: @ticket.PointOfDeparture</h4>
     <h4>Куда: @ticket.PointOfDestination</h4>
-    <h4>Когда: @ticket.Date.ToString("dd.MM.yyyy")</h4>
+    <h4>Когда: @ticket.Date.ToUniversalTime().ToString("dd.MM.yyyy")</h4>
     <h4>Класс полета: @ticket.ClassType</h4>
 </div>
 

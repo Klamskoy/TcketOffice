@@ -8,36 +8,17 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace TicketOffice.Models
 {
-    public class Ticket
+    public class Ticket : Flight
     {
-        
 
-        private string _pointOfDeparture;
-        private string _pointOfDestination;
-        private DateTime _date;
-        private string _classType;
+        private string _usersName;
+        private string _usersSurname;
 
-        public Ticket(string pointOfDeparture, string pointOfDestination, DateTime date, string classType)
+        public Ticket(string flightnumber, string pointOfDeparture, string pointOfDestination, DateTime date, DateTime time, string classType) : base(flightnumber, pointOfDeparture, pointOfDestination, date, time, classType)
         {
-            PointOfDeparture = pointOfDeparture;
-            PointOfDestination = pointOfDestination;
-            Date = date;
-            ClassType = classType;
         }
 
-        public Ticket(string pointOfDeparture, string pointOfDestination, string classType)
-        {
-            PointOfDeparture = pointOfDeparture;
-            PointOfDestination = pointOfDestination;
-            ClassType = classType;
-        }
-
-        [BsonId]
-        [BsonIgnoreIfDefault]
-        public ObjectId _id { get; set; }
-        public string PointOfDeparture { get => _pointOfDeparture; set => _pointOfDeparture = value; }
-        public string PointOfDestination { get => _pointOfDestination; set => _pointOfDestination = value; }
-        public DateTime Date { get => _date; set => _date = value; }
-        public string ClassType { get => _classType; set => _classType = value; }
+        public string UsersName { get => _usersName; set => _usersName = value; }
+        public string UsersSurname { get => _usersSurname; set => _usersSurname = value; }
     }
 }

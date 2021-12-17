@@ -1,0 +1,52 @@
+﻿@page "/flights"
+@inject NavigationManager navManager
+<div class="btn btn-primary" @onclick="AddFlight">Добавить рейс</div>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead class="thead-light">
+            <tr>
+                <th>Номер рейса</th>
+                <th>Пункт отправления</th>
+                <th>Пункт назначения</th>
+                <th>Дата</th>
+                <th>Время</th>
+                <th>Класс полёта</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in flightsList)
+            {
+                <tr>
+                    <SingleFlight flight="item"></SingleFlight>
+
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+@code {
+
+    List<Flight> flightsList = new List<Flight>();
+
+    protected override void OnInitialized()
+    {
+        var client = new MongoClient("mongodb://localhost");
+        var database = client.GetDatabase("TicketOffice");
+        var collection = database.GetCollection<Flight>("Flights").AsQueryable();
+
+        foreach (var item in collection)
+        {
+            Flight flight = new Flight(item.FlightNumber, item.PointOfDeparture, item.PointOfDestination, item.Date, item.Time, item.ClassType);
+            flightsList.Add(flight);
+
+        }
+    }
+
+    public void AddFlight()
+    {
+        navManager.NavigateTo("addflight");
+    }
+}

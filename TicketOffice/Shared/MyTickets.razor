@@ -1,6 +1,24 @@
 ﻿@page "/mytickets"
 
-<AllTicketsComponent></AllTicketsComponent>
+@foreach (var item in ticketsList)
+{
+    <SingleTicketComponent ticket="item"></SingleTicketComponent>
+}
 @code {
 
+    List<Ticket> ticketsList = new List<Ticket>();
+
+    protected override void OnInitialized()
+    {
+        var client = new MongoClient("mongodb://localhost");
+        var database = client.GetDatabase("TicketOffice");
+        var collection = database.GetCollection<Ticket>("Tickets").AsQueryable();
+
+
+        foreach (var item in collection)
+        {
+            Ticket ticket = new Ticket(1.ToString(), item.PointOfDeparture, item.PointOfDestination, item.Date, item.Time, item.ClassType);
+            ticketsList.Add(ticket);
+        }
+    }
 }
