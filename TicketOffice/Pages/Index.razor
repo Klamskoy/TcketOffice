@@ -46,7 +46,7 @@
     DateTime today = DateTime.Today;
     public string PointOfDestination { get; set; }
     public string PointOfDeparture { get; set; }
-    public DateTime Date { get; set;} = DateTime.Today;
+    public DateTime Date { get; set; } = DateTime.Today;
     public DateTime Time { get; set; }
     public string ClassType { get; set; }
 
@@ -56,12 +56,12 @@
     List<string> availableCities = new List<string>() { "Москва", "Санкт-Петербург", "Казань", "Краснодар" };
 
     List<string> ticketClasses = new List<string>() { "Первый класс", "Бизнес-класс", "Эконом-класс" };
-    
+
     bool IsUserLogged = true;
-    
+
     private void SearchButtonAction()
     {
         navigationManager.NavigateTo("flights");
-        
+
     }
 }
