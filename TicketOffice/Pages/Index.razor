@@ -1,36 +1,38 @@
 ﻿@using System.Globalization;
 @page "/"
 @inject NavigationManager navigationManager
+@inject Blazored.LocalStorage.ILocalStorageService storage
 
 
-<div class="row" style="margin-left: 200px; margin-top: 300px; margin-right: 200px ;background-color: lightblue">
+<div class="row" style="margin-left: 200px; margin-top: 300px; margin-right: 200px ;background-color: lightblue;">
     <div class="col-2" style="margin-left: auto">
         <h3 style="text-align:center">Откуда?</h3>
 
         <RadzenDropDownDataGrid TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-                                AllowFiltering="true" AllowClear="true"
-                                Data="availableCities" Style="width:100%;height: 50px;" 
+                                AllowFiltering="true" AllowClear="true" ShowSearch="false"
+                                Data="availableCities" Style="width:100%;" 
                                 @bind-Value="PointOfDeparture"/>
     </div>
     <div class="col-2">
         <h3 style="text-align:center">Куда?</h3>
         <RadzenDropDownDataGrid TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                                 AllowFiltering="true" AllowClear="true"
-                                Data="availableCities" Style="width:100%; height: 50px; text-align: center;"
+                                Data="availableCities"  ShowSearch="false" Style="width:100%; text-align: center;"
                                 @bind-Value ="PointOfDestination"/>
     </div>
     <div class="col-2">
 
         <h3 style="text-align:center">Когда?</h3>
-        <input type="date" min ="@today.ToString("yyyy-MM-dd")" @bind-value="Date"
-               style="width:100%; height:50px; border:hidden; border-radius: 4px; outline:none; text-align:center"  />
+        @*<input type="date" min="@today.ToString("yyyy-MM-dd")" @bind-value="Date" 
+               style="width:100%; height:50px; border:hidden; border-radius: 4px; outline:none; text-align:center" />*@
+        <RadzenDatePicker @bind-Value="Date" DateFormat="d" DateRender="DateRender"/>
 
     </div>
     <div class="col-2">
         <h3 style="text-align:center">Каким классом?</h3>
         <RadzenDropDownDataGrid TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-                                AllowFiltering="true" AllowClear="true"
-                                Data="@ticketClasses" Style="width:100%; height: 50px; text-align: center;" 
+                                AllowFiltering="true" AllowClear="true" ShowSearch="false"
+                                Data="@ticketClasses" Style="width:100%;  text-align: center;" 
                                 @bind-Value="ClassType"/>
     </div>
     <div class="col-2" style="margin-right:auto">
@@ -42,11 +44,11 @@
 
 
 @code{
-
+    Flight searchFlight;
     DateTime today = DateTime.Today;
     public string PointOfDestination { get; set; }
     public string PointOfDeparture { get; set; }
-    public DateTime Date { get; set; } = DateTime.Today;
+    public DateTime Date { get; set; }
     public DateTime Time { get; set; }
     public string ClassType { get; set; }
 
@@ -59,9 +61,20 @@
 
     bool IsUserLogged = true;
 
-    private void SearchButtonAction()
+    private async Task SearchButtonAction()
     {
+        searchFlight = new Flight(PointOfDeparture, PointOfDestination, Date, ClassType);
+        await storage.SetItemAsync<Flight>("SearchFlight", searchFlight);
         navigationManager.NavigateTo("flights");
+
+    }
+
+    void DateRender(DateRenderEventArgs args)
+    {
+        if (args.Date < DateTime.Today.Date)
+        {
+            args.Disabled = true;
+        }
 
     }
 }

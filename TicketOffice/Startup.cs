@@ -1,3 +1,4 @@
+using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
@@ -9,7 +10,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
 
 namespace TicketOffice
 {
@@ -28,6 +28,7 @@ namespace TicketOffice
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
+            services.AddBlazoredLocalStorage();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,9 +47,7 @@ namespace TicketOffice
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapBlazorHub();

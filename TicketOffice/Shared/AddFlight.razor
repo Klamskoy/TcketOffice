@@ -1,5 +1,6 @@
 ﻿@page "/addflight"
 @inject NavigationManager navManager
+@using MongoDB.Bson.Serialization.Attributes
 
 
 <h2 style="text-align:center">Добавить рейс</h2>
@@ -36,16 +37,7 @@
     </datalist>
     <button class="btn btn-primary" style="position:relative; left:40%" @onclick="AddToDatabase">Добавить</button>
 </div>
-<div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-        Dropdown button
-    </button>
-    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-        <li><a class="dropdown-item" href="#">Action</a></li>
-        <li><a class="dropdown-item" href="#">Another action</a></li>
-        <li><a class="dropdown-item" href="#">Something else here</a></li>
-    </ul>
-</div>
+
 
 
 
@@ -60,6 +52,7 @@
     public string FlightNumber { get; set; }
     public string PointOfDeparture { get; set; }
     public string PointOfDestination { get; set; }
+    [BsonDateTimeOptions(Kind = DateTimeKind.Utc)]
     public DateTime Date { get; set; } = DateTime.Today;
     public DateTime Time { get; set; }
     public string ClassType { get; set; }

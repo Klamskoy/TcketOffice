@@ -1,7 +1,60 @@
 ﻿@page "/flights"
 @inject NavigationManager navManager
-<div class="btn btn-primary" @onclick="AddFlight">Добавить рейс</div>
+@inject Blazored.LocalStorage.ILocalStorageService storage
 
+<div class="btn btn-primary" @onclick="AddFlight">Добавить рейс</div>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+    Добавить рейс modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Добавить рейс</h5>
+            </div>
+            <div class="modal-body">
+                <input class="form-control form-control-lg" type="text" placeholder="Номер рейса" style="margin-bottom:10px;"
+                       @bind-value="FlightNumber">
+                <input class="form-control form-control-lg" list="datalistOptions1" id="DataList1" placeholder="Пункт отправления"
+                       @bind-value="PointOfDeparture" style="margin-bottom: 10px;" />
+                <datalist id="datalistOptions1">
+                    @foreach (var item in availableCities)
+                    {
+                        <option value="@item" />
+                    }
+                </datalist>
+                <input class="form-control form-control-lg" list="datalistOptions2" id="DataList2" placeholder="Пункт назначения"
+                       @bind-value="PointOfDestination" style="margin-bottom: 10px;" />
+                <datalist id="datalistOptions2">
+                    @foreach (var item in availableCities)
+                    {
+                        <option value="@item" />
+                    }
+                </datalist>
+                <input type="date" min="@today.ToString("yyyy-MM-dd")" @bind-value="Date"
+        style="width: 100%; height: 50px; border: groove; border-radius: 6px; outline: none; text-align: center; margin-bottom: 10px" />
+                <input type="time" min="@today.ToString("hh:mm")" @bind-value="Time"
+        style="width: 100%; height: 50px; border:groove; border-radius: 6px; outline:none; text-align: center; margin-bottom: 10px" />
+                <input class="form-control form-control-lg" list="datalistOptions3" id="DataList3" placeholder="Класс полёта"
+                       @bind-value="ClassType" style="margin-bottom: 10px;" />
+                <datalist id="datalistOptions3">
+                    @foreach (var item in ticketClasses)
+                    {
+                        <option value="@item" />
+                    }
+                </datalist>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @onclick="AddToDatabase">Добавить</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Таблица рейсов -->
 <div class="table-responsive">
     <table class="table table-striped">
         <thead class="thead-light">
@@ -16,24 +69,63 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in flightsList)
+            @if (searchFlight != null)
             {
-                <tr>
-                    <SingleFlight flight="item"></SingleFlight>
-                </tr>
-            }
+                FillSearchingFlightsList(searchFlight);
+                @foreach (var item in searchingFlightsList)
+                {
+                    <tr>
+                        <SingleFlight flight="item"></SingleFlight>
+                    </tr>
+                }
 
+                storage.RemoveItemAsync("SearchFlight");
+            }
+            else
+            {
+                @foreach (var item in flightsList)
+                {
+                    <tr>
+                        <SingleFlight flight="item"></SingleFlight>
+                    </tr>
+                }
+            }
         </tbody>
     </table>
 </div>
 
 
 @code {
+    List<string> availableCities = new List<string>() { "Москва", "Санкт-Петербург", "Казань", "Краснодар" };
 
+    List<string> ticketClasses = new List<string>() { "Первый класс", "Бизнес-класс", "Эконом-класс" };
+
+    DateTime today = DateTime.Today;
+    DateTime currentHour = DateTime.UtcNow;
+    public string FlightNumber { get; set; }
+    public string PointOfDeparture { get; set; }
+    public string PointOfDestination { get; set; }
+    [BsonDateTimeOptions(Kind = DateTimeKind.Utc)]
+    public DateTime Date { get; set; } = DateTime.Today;
+    public DateTime Time { get; set; }
+    public string ClassType { get; set; }
+
+    void DateRender(DateRenderEventArgs args)
+    {
+        if (args.Date < DateTime.Today.Date)
+        {
+            args.Disabled = true;
+        }
+
+    }
+
+    Flight searchFlight;
+    List<Flight> searchingFlightsList = new List<Flight>();
     public List<Flight> flightsList = new List<Flight>();
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
+        searchFlight = await storage.GetItemAsync<Flight>("SearchFlight");
         var client = new MongoClient("mongodb://localhost");
         var database = client.GetDatabase("TicketOffice");
         var collection = database.GetCollection<Flight>("Flights").AsQueryable();
@@ -46,6 +138,30 @@
         }
     }
 
+
+    private void AddToDatabase()
+    {
+        var client = new MongoClient("mongodb://localhost");
+        var database = client.GetDatabase("TicketOffice");
+        var collection = database.GetCollection<Flight>("Flights");
+        Flight flight = new Flight(FlightNumber, PointOfDeparture, PointOfDestination, Date, Time, ClassType);
+        collection.InsertOne(flight);
+        navManager.NavigateTo("flights");
+    }
+
+    void FillSearchingFlightsList(Flight searchFlight)
+    {
+        var client = new MongoClient("mongodb://localhost");
+        var database = client.GetDatabase("TicketOffice");
+        var collection = database.GetCollection<Flight>("Flights").AsQueryable();
+        foreach (var item in collection)
+        {
+            if (item.PointOfDeparture == searchFlight.PointOfDeparture || item.PointOfDestination == searchFlight.PointOfDestination || item.Date == searchFlight.Date || item.ClassType == searchFlight.ClassType)
+            {
+                searchingFlightsList.Add(new Flight(item.FlightNumber, item.PointOfDeparture, item.PointOfDestination, item.Date, item.Time, item.ClassType));
+            }
+        }
+    }
 
     public void AddFlight()
     {
