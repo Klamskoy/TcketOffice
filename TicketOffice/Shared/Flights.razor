@@ -2,10 +2,9 @@
 @inject NavigationManager navManager
 @inject Blazored.LocalStorage.ILocalStorageService storage
 
-<div class="btn btn-primary" @onclick="AddFlight">Добавить рейс</div>
 <!-- Button trigger modal -->
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-    Добавить рейс modal
+    Добавить рейс
 </button>
 
 <!-- Modal -->
@@ -146,7 +145,7 @@
         var collection = database.GetCollection<Flight>("Flights");
         Flight flight = new Flight(FlightNumber, PointOfDeparture, PointOfDestination, Date, Time, ClassType);
         collection.InsertOne(flight);
-        navManager.NavigateTo("flights");
+        flightsList.Add(flight);
     }
 
     void FillSearchingFlightsList(Flight searchFlight)
@@ -163,8 +162,4 @@
         }
     }
 
-    public void AddFlight()
-    {
-        navManager.NavigateTo("addflight");
-    }
 }
