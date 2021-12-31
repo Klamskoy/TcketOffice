@@ -1,5 +1,43 @@
 ﻿@page "/profile"
+@using System
+@using Microsoft.AspNetCore.Hosting
+@inject IWebHostEnvironment Environment
+@inject IJSRuntime JSRuntime
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+    Добавить город
+</button>
 
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Добавить город</h5>
+            </div>
+            <div class="modal-body">
+                <input class="form-control form-control-lg" type="text" placeholder="Название города" style="margin-bottom:10px;"
+                       @bind-value="Name" />
+                <div class="form-floating">
+                    <textarea @bind="Description" class="form-control" placeholder="Описание" id="floatingTextarea2" style="height: 300px; margin-bottom: 10px;" ></textarea>
+                </div>
+                @*<input class="form-control form-control-lg" type="text" placeholder="Описание" style="margin-bottom:10px;"
+        @bind-value="Description" />*@
+            <div>
+                <label>Прикрепите изображение</label><br />
+                <InputFile OnChange="LoadImage"></InputFile>
+            </div>
+                
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @onclick="AddCityToDB">Добавить</button>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
 <div class="row">
     <div class="col-2">
         <div class="card" style="width: 18rem;">
@@ -22,10 +60,49 @@
         </div>
     </div>
 </div>
-    
-    
+
+
 
 
 @code {
+    public string Name { get; set; }
+    public string Description { get; set; }
+    //public string ImageInBase64 { get; set; }
+    private List<IBrowserFile> loadedFiles = new();
+    private bool isLoading;
+    protected byte[] img;
 
+    public void AddCityToDB()
+    {
+        var client = new MongoClient("mongodb://localhost");
+        var db = client.GetDatabase("TicketOffice");
+        var coll = db.GetCollection<City>("Cities");
+        coll.InsertOne(new City(Name, Description, Convert.ToBase64String(img)));
+        Name = "";
+        Description = "";
+        img = null;
+    }
+
+    private async Task LoadImage(InputFileChangeEventArgs e)
+    {
+        isLoading = true;
+        loadedFiles.Clear();
+
+        foreach (var file in e.GetMultipleFiles())
+        {
+            try
+            {
+                loadedFiles.Add(file);
+                var stream = file.OpenReadStream();
+                img = new byte[stream.Length];
+                await stream.ReadAsync(img);
+            }
+
+            catch (Exception ex)
+            {
+                await JSRuntime.InvokeVoidAsync("logError", ex);
+            }
+        }
+        isLoading = false;
+    }
 }
