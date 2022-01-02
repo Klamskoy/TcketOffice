@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson;
 
 namespace TicketOffice.Models
 {
@@ -10,7 +12,9 @@ namespace TicketOffice.Models
         private string _name;
         private string _description;
         private string _imageInBase64;
-
+        [BsonId]
+        [BsonIgnoreIfDefault]
+        public ObjectId _id { get; set; }
         public string Name { get => _name; set => _name = value; }
         public string Description { get => _description; set => _description = value; }
         public string ImageInBase64 { get => _imageInBase64; set => _imageInBase64 = value; }

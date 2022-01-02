@@ -21,8 +21,6 @@
                 <div class="form-floating">
                     <textarea @bind="Description" class="form-control" placeholder="Описание" id="floatingTextarea2" style="height: 300px; margin-bottom: 10px;" ></textarea>
                 </div>
-                @*<input class="form-control form-control-lg" type="text" placeholder="Описание" style="margin-bottom:10px;"
-        @bind-value="Description" />*@
             <div>
                 <label>Прикрепите изображение</label><br />
                 <InputFile OnChange="LoadImage"></InputFile>
@@ -67,10 +65,10 @@
 @code {
     public string Name { get; set; }
     public string Description { get; set; }
-    //public string ImageInBase64 { get; set; }
     private List<IBrowserFile> loadedFiles = new();
     private bool isLoading;
     protected byte[] img;
+
 
     public void AddCityToDB()
     {
@@ -80,7 +78,6 @@
         coll.InsertOne(new City(Name, Description, Convert.ToBase64String(img)));
         Name = "";
         Description = "";
-        img = null;
     }
 
     private async Task LoadImage(InputFileChangeEventArgs e)
@@ -93,7 +90,7 @@
             try
             {
                 loadedFiles.Add(file);
-                var stream = file.OpenReadStream();
+                var stream = file.OpenReadStream(4194304); // max file size - 4 mb
                 img = new byte[stream.Length];
                 await stream.ReadAsync(img);
             }

@@ -36,6 +36,11 @@ namespace TicketOffice.Models
             ClassType = classType;
         }
 
+        public Flight(string pointOfDestination)
+        {
+            PointOfDestination = pointOfDestination;
+        }
+
         [BsonId]
         [BsonIgnoreIfDefault]
         public ObjectId _id { get; set; }

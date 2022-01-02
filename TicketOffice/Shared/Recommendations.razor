@@ -1,9 +1,26 @@
 ﻿@page "/recommendations"
+<div class="row" style="display: flex; flex-wrap: wrap">
+     
+     @foreach(var item in citiesList)
+            {
+               <CityCardComponent city="item"></CityCardComponent>
+            }
 
-
-<h3>Recommendations</h3>
-
+    </div>
 
 @code {
+    List<City> citiesList = new List<City>();
+    protected override void OnInitialized()
+    {
+        var client = new MongoClient("mongodb://localhost");
+        var database = client.GetDatabase("TicketOffice");
+        var collection = database.GetCollection<City>("Cities").AsQueryable();
 
+        foreach (var item in collection)
+        {
+            City city = new City(item.Name, item.Description, item.ImageInBase64);
+            citiesList.Add(city);
+
+        }
+    }
 }
