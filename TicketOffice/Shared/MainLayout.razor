@@ -1,13 +1,22 @@
 ﻿@inherits LayoutComponentBase
-
+@inject Blazored.LocalStorage.ILocalStorageService storage
+@inject NavigationManager navManager
 <div class="page" style="background: linear-gradient(lightblue 70%, deepskyblue);">
     <div class="sidebar">
         <NavMenu />
     </div>
-    
+
     <div class="main">
         <div class="top-row px-4">
-       
+            @if (!IsUserLogged)
+            {
+                <button class="btn btn-primary" style="margin-right: 20px;" @onclick="Login">Sign in</button>
+                <button class="btn btn-primary" style="margin-right: 20px;" @onclick="@Signup">Sign up</button>
+            }
+            else
+            {
+                <button class="btn btn-primary" style="margin-right: 20px;" @onclick="Logout">Log out</button>
+            }
         </div>
 
         <div class="content px-4">
@@ -15,3 +24,30 @@
         </div>
     </div>
 </div>
+
+@code{
+    public static bool IsUserLogged { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        IsUserLogged = await storage.GetItemAsync<bool>("IsUserLogged");
+    }
+
+    public async Task Login()
+    {
+
+        await storage.SetItemAsync<bool>("IsUserLogged", true);
+        navManager.NavigateTo("/", true);
+    }
+
+    public async Task Logout()
+    {
+        await storage.SetItemAsync<bool>("IsUserLogged", false);
+        navManager.NavigateTo("/", true);
+
+    }
+    public void Signup()
+    {
+        navManager.NavigateTo("/registration");
+    }
+}
