@@ -13,14 +13,18 @@ namespace TicketOffice.Models
 
         private string _usersName;
         private string _usersSurname;
+        private string _usersPatronymic;
 
 
-        public Ticket(string flightnumber, string pointOfDeparture, string pointOfDestination, DateTime date, DateTime time, string classType) : base(flightnumber, pointOfDeparture, pointOfDestination, date, time, classType)
+        public Ticket(string flightnumber, string pointOfDeparture, string pointOfDestination, DateTime date, DateTime time, string classType, string usersName, string usersSurname, string usersPatronymic) : base(flightnumber, pointOfDeparture, pointOfDestination, date, time, classType)
         {
-
+            UsersName = usersName;
+            UsersSurname = usersSurname;
+            UsersPatronymic = usersPatronymic;
         }
 
         public string UsersName { get => _usersName; set => _usersName = value; }
         public string UsersSurname { get => _usersSurname; set => _usersSurname = value; }
+        public string UsersPatronymic { get => _usersPatronymic; set => _usersPatronymic = value; }
     }
 }

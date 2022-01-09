@@ -1,0 +1,57 @@
+﻿@inject IJSRuntime JSRuntime
+<div class="container" style="width: 500px; margin-top: 30px; margin-left: 30px; margin-right: 30px; background-color:azure; border-radius:10px;">
+    <br />
+    <h3 align="center">Добавить город</h3>
+    <input class="form-control form-control-lg" type="text" placeholder="Название города" style="margin-bottom:10px;"
+           @bind-value="Name" />
+    <div class="form-floating">
+        <textarea @bind="Description" class="form-control" placeholder="Описание" id="floatingTextarea2" style="height: 210px; margin-bottom: 10px;"></textarea>
+    </div>
+    <div>
+        <label>Прикрепите изображение (максимальный размер - 4 Мб)</label><br />
+        <InputFile OnChange="LoadImage"></InputFile>
+    </div>
+    <br />
+    <button type="button" class="btn btn-primary" style="margin-left:35%;margin-bottom:30px; width:150px;" @onclick="AddCityToDB">Добавить</button>
+</div>
+@code {
+    public string Name { get; set; }
+    public string Description { get; set; }
+    private List<IBrowserFile> loadedFiles = new();
+    private bool isLoading;
+    protected byte[] img;
+
+
+    public void AddCityToDB()
+    {
+        var client = new MongoClient("mongodb://localhost");
+        var db = client.GetDatabase("TicketOffice");
+        var coll = db.GetCollection<City>("Cities");
+        coll.InsertOne(new City(Name, Description, Convert.ToBase64String(img)));
+        Name = "";
+        Description = "";
+    }
+
+    private async Task LoadImage(InputFileChangeEventArgs e)
+    {
+        isLoading = true;
+        loadedFiles.Clear();
+
+        foreach (var file in e.GetMultipleFiles())
+        {
+            try
+            {
+                loadedFiles.Add(file);
+                var stream = file.OpenReadStream(4194304); // max file size - 4 mb
+                img = new byte[stream.Length];
+                await stream.ReadAsync(img);
+            }
+
+            catch (Exception ex)
+            {
+                await JSRuntime.InvokeVoidAsync("logError", ex);
+            }
+        }
+        isLoading = false;
+    }
+}

@@ -1,0 +1,94 @@
+﻿@inject NavigationManager navManager
+@inject Blazored.LocalStorage.ILocalStorageService storage
+<div class="container" style="width: 500px; margin-top: 30px; margin-left: 30px; margin-right: 30px; margin-bottom:30px; background-color:azure; border-radius:10px;">
+    <br />
+    <h3 align="center">Добавить рейс</h3>
+    <input class="form-control form-control-lg" type="text" placeholder="Номер рейса" style="margin-bottom:10px;"
+           @bind-value="FlightNumber">
+    <input class="form-control form-control-lg" list="datalistOptions1" id="DataList1" placeholder="Пункт отправления"
+           @bind-value="PointOfDeparture" style="margin-bottom: 10px;" />
+    <datalist id="datalistOptions1">
+        @foreach (var item in availableCities)
+        {
+            <option value="@item" />
+        }
+    </datalist>
+    <input class="form-control form-control-lg" list="datalistOptions2" id="DataList2" placeholder="Пункт назначения"
+           @bind-value="PointOfDestination" style="margin-bottom: 10px;" />
+    <datalist id="datalistOptions2">
+        @foreach (var item in availableCities)
+        {
+            <option value="@item" />
+        }
+    </datalist>
+    <input type="date" min="@today.ToString("yyyy-MM-dd")" @bind-value="Date"
+           style="width: 100%; height: 50px; border: groove; border-radius: 6px; outline: none; text-align: center; margin-bottom: 10px" />
+    <input type="time" min="@today.ToString("hh:mm")" @bind-value="Time"
+           style="width: 100%; height: 50px; border:groove; border-radius: 6px; outline:none; text-align: center; margin-bottom: 10px" />
+    <input class="form-control form-control-lg" list="datalistOptions3" id="DataList3" placeholder="Класс полёта"
+           @bind-value="ClassType" style="margin-bottom: 10px;" />
+    <datalist id="datalistOptions3">
+        @foreach (var item in ticketClasses)
+        {
+            <option value="@item" />
+        }
+    </datalist>
+
+    <button type="button" class="btn btn-primary" style="margin-left:35%;margin-bottom:30px; width:150px;" @onclick="AddToDatabase">Добавить</button>
+
+</div>
+
+
+@code {
+    List<string> availableCities = new List<string>();
+
+    List<string> ticketClasses = new List<string>() { "Первый класс", "Бизнес-класс", "Эконом-класс" };
+
+    DateTime today = DateTime.Today;
+    DateTime currentHour = DateTime.UtcNow;
+    public string FlightNumber { get; set; }
+    public string PointOfDeparture { get; set; }
+    public string PointOfDestination { get; set; }
+    [BsonDateTimeOptions(Kind = DateTimeKind.Utc)]
+    public DateTime Date { get; set; } = DateTime.Today;
+    public DateTime Time { get; set; }
+    public string ClassType { get; set; }
+
+    void DateRender(DateRenderEventArgs args)
+    {
+        if (args.Date < DateTime.Today.Date)
+        {
+            args.Disabled = true;
+        }
+
+    }
+
+    protected override void OnInitialized()
+    {
+        var client = new MongoClient("mongodb://localhost");
+        var database = client.GetDatabase("TicketOffice");
+        var collection = database.GetCollection<City>("Cities").AsQueryable();
+
+        foreach(var item in collection)
+        {
+            availableCities.Add(item.Name);
+        }
+    }
+
+    private void AddToDatabase()
+    {
+        var client = new MongoClient("mongodb://localhost");
+        var database = client.GetDatabase("TicketOffice");
+        var collection = database.GetCollection<Flight>("Flights");
+        Flight flight = new Flight(FlightNumber, PointOfDeparture, PointOfDestination, Date, Time, ClassType);
+        collection.InsertOne(flight);
+        FlightNumber = "";
+        PointOfDeparture = "";
+        PointOfDestination = "";
+        Date = today;
+        Time = DateTime.MinValue;
+        ClassType = "";
+    }
+
+
+}

@@ -1,0 +1,43 @@
+﻿
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead class="thead-light">
+            <tr>
+                <th>Фамилия</th>
+                <th>Имя</th>
+                <th>Отчество</th>
+                <th>Дата рождения</th>
+                <th>Статус учетной записи</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+                @foreach (var item in usersList)
+                {<tr>
+                    <td>@item.Surname</td>
+                    <td>@item.Name</td>
+                    <td>@item.Patronymic</td>
+                    <td>@item.DayOfBirth.ToString("dd.MM.yyyy")</td>
+                    <td>@item.Role</td>
+                </tr>
+                }
+            
+        </tbody>
+    </table>
+</div>
+@code {
+    List<User> usersList = new List<User>();
+
+    protected override void OnInitialized()
+    {
+        var client = new MongoClient("mongodb://localhost");
+        var db = client.GetDatabase("TicketOffice");
+        var coll = db.GetCollection<User>("Users").AsQueryable();
+
+        foreach(var item in coll)
+        {
+            usersList.Add(item);
+        }
+    }
+}

@@ -9,35 +9,33 @@
         <h3 style="text-align:center">Откуда?</h3>
 
         <RadzenDropDownDataGrid TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-                                AllowFiltering="true" AllowClear="true" ShowSearch="false"
+                                AllowFiltering="true" AllowClear="true" ShowSearch="false" SearchText="Поиск.."
                                 Data="availableCities" Style="width:100%;" 
                                 @bind-Value="PointOfDeparture"/>
     </div>
     <div class="col-2">
         <h3 style="text-align:center">Куда?</h3>
         <RadzenDropDownDataGrid TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-                                AllowFiltering="true" AllowClear="true"
-                                Data="availableCities"  ShowSearch="false" Style="width:100%; text-align: center;"
+                                AllowFiltering="true" AllowClear="true" ShowSearch="false" SearchText="Поиск.."
+                                Data="availableCities"   Style="width:100%; text-align: center;"
                                 @bind-Value ="PointOfDestination"/>
     </div>
     <div class="col-2">
 
         <h3 style="text-align:center">Когда?</h3>
-        @*<input type="date" min="@today.ToString("yyyy-MM-dd")" @bind-value="Date" 
-               style="width:100%; height:50px; border:hidden; border-radius: 4px; outline:none; text-align:center" />*@
         <RadzenDatePicker @bind-Value="Date" DateFormat="d" DateRender="DateRender"/>
 
     </div>
     <div class="col-2">
         <h3 style="text-align:center">Каким классом?</h3>
         <RadzenDropDownDataGrid TValue="string" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-                                AllowFiltering="true" AllowClear="true" ShowSearch="false"
+                                AllowFiltering="true" AllowClear="true" ShowSearch="false" SearchText="Поиск.."
                                 Data="@ticketClasses" Style="width:100%;  text-align: center;" 
                                 @bind-Value="ClassType"/>
     </div>
     <div class="col-2" style="margin-right:auto">
         <h3><br /></h3>
-        <button class="btn btn-primary" @onclick="SearchButtonAction">Search</button>
+        <button class="btn btn-primary"  @onclick="SearchButtonAction">Search</button>
     </div>
 </div>
 
@@ -52,14 +50,21 @@
     public DateTime Time { get; set; }
     public string ClassType { get; set; }
 
-
-
-    //создать коллекцию в БД, а затем привязать ее к листу
-    List<string> availableCities = new List<string>() { "Москва", "Санкт-Петербург", "Казань", "Краснодар" };
+    List<string> availableCities = new List<string>();
 
     List<string> ticketClasses = new List<string>() { "Первый класс", "Бизнес-класс", "Эконом-класс" };
 
-    bool IsUserLogged = true;
+    protected override void OnInitialized()
+    {
+        var client = new MongoClient("mongodb://localhost");
+        var database = client.GetDatabase("TicketOffice");
+        var collection = database.GetCollection<City>("Cities").AsQueryable();
+
+        foreach (var item in collection)
+        {
+            availableCities.Add(item.Name);
+        }
+    }
 
     private async Task SearchButtonAction()
     {

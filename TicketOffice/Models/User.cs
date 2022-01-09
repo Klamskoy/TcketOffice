@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson;
 
-namespace TicketOffice.Pages
+namespace TicketOffice.Models
 {
     public class User
     {

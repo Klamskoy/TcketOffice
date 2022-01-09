@@ -1,105 +1,46 @@
 ﻿@page "/profile"
-@using System
-@using Microsoft.AspNetCore.Hosting
-@inject IWebHostEnvironment Environment
-@inject IJSRuntime JSRuntime
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-    Добавить город
-</button>
+@inject Blazored.LocalStorage.ILocalStorageService storage
 
-<!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Добавить город</h5>
-            </div>
-            <div class="modal-body">
-                <input class="form-control form-control-lg" type="text" placeholder="Название города" style="margin-bottom:10px;"
-                       @bind-value="Name" />
-                <div class="form-floating">
-                    <textarea @bind="Description" class="form-control" placeholder="Описание" id="floatingTextarea2" style="height: 300px; margin-bottom: 10px;" ></textarea>
-                </div>
-            <div>
-                <label>Прикрепите изображение</label><br />
-                <InputFile OnChange="LoadImage"></InputFile>
-            </div>
-                
 
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @onclick="AddCityToDB">Добавить</button>
-            </div>
-        </div>
-    </div>
-</div>
-<br />
+@if (currentUser != null)
+{
 <div class="row">
-    <div class="col-2">
-        <div class="card" style="width: 18rem;">
-            <img src="/max.png" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
+    <div>
+        <div style="margin-left: 120px; margin-top: 50px;">
+            @if (currentUser.ImageInBase64 == null)
+            {
+                <img src="/img/question.png" class="img-thumbnail" alt="image" style="width:200px; height: 200px; border-radius:50%;" />
+            }
+        </div>
+
+        <div style="margin-left: 100px; margin-top:50px;">
+            <h2>Имя: @currentUser.Name</h2>
+            <h2>Фамилия: @currentUser.Surname</h2>
+            <h2>Отчество: @currentUser.Patronymic</h2>
+            <h2>Дата рождения: @currentUser.DayOfBirth.ToString("dd.MM.yyyy")</h2>
         </div>
     </div>
-    <div class="col-2">
-        <div class="card" style="width: 18rem;">
-            <img src="/max.png" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
+    <div style="width:700px; margin-left:100px; margin-top: 50px;">
+        <h2>Мои билеты</h2>
+        <MyTickets></MyTickets>
     </div>
+
+
 </div>
+   
+
+}
 
 
 
 
 @code {
-    public string Name { get; set; }
-    public string Description { get; set; }
-    private List<IBrowserFile> loadedFiles = new();
-    private bool isLoading;
-    protected byte[] img;
-
-
-    public void AddCityToDB()
+    public User currentUser { get; set; }
+    protected override async Task OnInitializedAsync()
     {
-        var client = new MongoClient("mongodb://localhost");
-        var db = client.GetDatabase("TicketOffice");
-        var coll = db.GetCollection<City>("Cities");
-        coll.InsertOne(new City(Name, Description, Convert.ToBase64String(img)));
-        Name = "";
-        Description = "";
+        currentUser = await storage.GetItemAsync<User>("CurrentUser");
     }
 
-    private async Task LoadImage(InputFileChangeEventArgs e)
-    {
-        isLoading = true;
-        loadedFiles.Clear();
 
-        foreach (var file in e.GetMultipleFiles())
-        {
-            try
-            {
-                loadedFiles.Add(file);
-                var stream = file.OpenReadStream(4194304); // max file size - 4 mb
-                img = new byte[stream.Length];
-                await stream.ReadAsync(img);
-            }
 
-            catch (Exception ex)
-            {
-                await JSRuntime.InvokeVoidAsync("logError", ex);
-            }
-        }
-        isLoading = false;
-    }
 }

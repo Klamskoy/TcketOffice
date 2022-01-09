@@ -8,11 +8,21 @@
 
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
     <ul class="nav flex-column">
-        @if (IsUserLogged)
+
+        @if (IsUserLogged && CurrentUser.Role == "Администратор")
+        {
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="control-panel">
+                    <span class="oi oi-key" aria-hidden="true"></span> Панель управления
+                </NavLink>
+            </li>
+        }
+
+        @if (IsUserLogged && CurrentUser.Role != "Администратор")
         {
             <li class="nav-item px-3">
                 <NavLink class="nav-link" href="profile">
-                    <span class="oi oi-person" aria-hidden="true"></span> Мой профиль
+                    <span class="oi oi-person" aria-hidden="true"></span> Личный кабинет
                 </NavLink>
             </li>
         }
@@ -22,14 +32,6 @@
                 <span class="oi oi-home" aria-hidden="true"></span> Купить билет
             </NavLink>
         </li>
-        @if (IsUserLogged)
-        {
-            <li class="nav-item px-3">
-                <NavLink class="nav-link" href="mytickets">
-                    <span class="oi oi-star" aria-hidden="true"></span> Мои билеты
-                </NavLink>
-            </li>
-        }
 
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="flights">
@@ -50,6 +52,7 @@
 @code {
     private bool collapseNavMenu = true;
     public bool IsUserLogged { get; set; }
+    public User CurrentUser { get; set; }
     private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
     private void ToggleNavMenu()
@@ -59,6 +62,7 @@
 
     protected override async Task OnInitializedAsync()
     {
+        CurrentUser = await storage.GetItemAsync<User>("CurrentUser");
         IsUserLogged = await storage.GetItemAsync<bool>("IsUserLogged");
     }
 }
