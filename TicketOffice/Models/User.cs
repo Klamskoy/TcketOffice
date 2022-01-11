@@ -15,7 +15,6 @@ namespace TicketOffice.Models
         private string _surname;
         private string _patronymic;
         private DateTime _dayOfBirth;
-        private string _imageInBase64;
         private string _role;
 
         [BsonId]
@@ -28,7 +27,6 @@ namespace TicketOffice.Models
         public string Patronymic { get => _patronymic; set => _patronymic = value; }
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
         public DateTime DayOfBirth { get => _dayOfBirth; set => _dayOfBirth = value; }
-        public string ImageInBase64 { get => _imageInBase64; set => _imageInBase64 = value; }
         public string Role { get => _role; set => _role = value; }
 
         public User(string login, string password, string name, string surname, string patronymic, DateTime dayOfBirth)
@@ -39,7 +37,8 @@ namespace TicketOffice.Models
             Surname = surname;
             Patronymic = patronymic;
             DayOfBirth = dayOfBirth;
-            Role = "user";
+            Role = "Пользователь";
         }
+
     }
 }

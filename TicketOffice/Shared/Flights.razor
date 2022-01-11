@@ -18,6 +18,10 @@
             @if (searchFlight != null)
             {
                 FillSearchingFlightsList(searchFlight);
+                @if(searchingFlightsList.Count == 0)
+                {
+                    navManager.NavigateTo("search-error");
+                }
                 @foreach (var item in searchingFlightsList)
                 {
                     <tr>
@@ -79,6 +83,10 @@
             flightsList.Add(flight);
 
         }
+    }
+    void SearchError()
+    {
+        navManager.NavigateTo("search-error");
     }
 
     void FillSearchingFlightsList(Flight searchFlight)

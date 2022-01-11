@@ -1,11 +1,13 @@
-﻿
+﻿@inject NavigationManager navManager
 <div class="containter" style="margin-left:auto; margin-right:auto; background-color:bisque">
     <h3>Ticket</h3>
+    <h4>Откуда: @ticket.FlightNumber</h4>
     <h4>Откуда: @ticket.PointOfDeparture</h4>
     <h4>Куда: @ticket.PointOfDestination</h4>
     <h4>Когда: @ticket.Date.ToString("dd.MM.yyyy")</h4>
     <h4>Класс полета: @ticket.ClassType</h4>
     <h4>Пассажир: @ticket.UsersPatronymic @ticket.UsersName @ticket.UsersSurname</h4>
+    <button class="btn btn-primary" @onclick="DeleteTicket">Вернуть билет</button>
 </div>
 
 
@@ -13,4 +15,15 @@
 @code {
     [Parameter] public Ticket ticket { get; set; }
 
+    void DeleteTicket()
+    {
+        var client = new MongoClient("mongodb://localhost");
+        var database = client.GetDatabase("TicketOffice");
+        var collection = database.GetCollection<Ticket>("Tickets");
+        collection.DeleteOne(x => x.FlightNumber == ticket.FlightNumber && x.PointOfDeparture == ticket.PointOfDeparture && x.PointOfDestination == ticket.PointOfDestination &&
+        x.Date == ticket.Date && x.ClassType == ticket.ClassType && x.UsersName == ticket.UsersName && x.UsersSurname == ticket.UsersSurname
+        && x.UsersPatronymic == ticket.UsersPatronymic);
+
+        navManager.NavigateTo("profile", true);
+    }
 }

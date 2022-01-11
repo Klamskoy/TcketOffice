@@ -49,6 +49,7 @@ namespace TicketOffice.Models
         public string PointOfDestination { get => _pointOfDestination; set => _pointOfDestination = value; }
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
         public DateTime Date { get => _date; set => _date = value; }
+        [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
         public DateTime Time { get => _time; set => _time = value; }
         public string ClassType { get => _classType; set => _classType = value; }
     }

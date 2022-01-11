@@ -4,43 +4,33 @@
 
 @if (currentUser != null)
 {
-<div class="row">
-    <div>
-        <div style="margin-left: 120px; margin-top: 50px;">
-            @if (currentUser.ImageInBase64 == null)
-            {
-                <img src="/img/question.png" class="img-thumbnail" alt="image" style="width:200px; height: 200px; border-radius:50%;" />
-            }
+    <div class="row">
+        <div>
+            <div style="margin-left: 100px; margin-top:50px;">
+                <h2>Имя: @currentUser.Name</h2>
+                <h2>Фамилия: @currentUser.Surname</h2>
+                <h2>Отчество: @currentUser.Patronymic</h2>
+                <h2>Дата рождения: @currentUser.DayOfBirth.ToString("dd.MM.yyyy")</h2>
+            </div>
+        </div>
+        <div style="width:700px; margin-left:100px; margin-top: 50px;">
+            <h2>Мои билеты</h2>
+            <MyTickets></MyTickets>
         </div>
 
-        <div style="margin-left: 100px; margin-top:50px;">
-            <h2>Имя: @currentUser.Name</h2>
-            <h2>Фамилия: @currentUser.Surname</h2>
-            <h2>Отчество: @currentUser.Patronymic</h2>
-            <h2>Дата рождения: @currentUser.DayOfBirth.ToString("dd.MM.yyyy")</h2>
-        </div>
-    </div>
-    <div style="width:700px; margin-left:100px; margin-top: 50px;">
-        <h2>Мои билеты</h2>
-        <MyTickets></MyTickets>
+
     </div>
 
-
-</div>
-   
 
 }
 
-
-
-
 @code {
+
+
     public User currentUser { get; set; }
+
     protected override async Task OnInitializedAsync()
     {
         currentUser = await storage.GetItemAsync<User>("CurrentUser");
     }
-
-
-
 }

@@ -1,0 +1,13 @@
+﻿@page "/search-error"
+@inject NavigationManager navManager
+<div align="center" style="margin-top:200px;">
+    <h3 >Извините, в данный момент таких рейсов нет</h3>
+    <br />
+    <button class="btn btn-primary" @onclick="ToHome">На главную</button>
+</div>
+@code {
+    void ToHome()
+        {
+        navManager.NavigateTo("/");
+        }
+}
