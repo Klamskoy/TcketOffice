@@ -1,14 +1,37 @@
 ﻿@inject NavigationManager navManager
-<div class="containter" style="margin-left:auto; margin-right:auto; background-color:bisque">
-    <h3>Ticket</h3>
-    <h4>Откуда: @ticket.FlightNumber</h4>
-    <h4>Откуда: @ticket.PointOfDeparture</h4>
-    <h4>Куда: @ticket.PointOfDestination</h4>
-    <h4>Когда: @ticket.Date.ToString("dd.MM.yyyy")</h4>
-    <h4>Класс полета: @ticket.ClassType</h4>
-    <h4>Пассажир: @ticket.UsersPatronymic @ticket.UsersName @ticket.UsersSurname</h4>
-    <button class="btn btn-primary" @onclick="DeleteTicket">Вернуть билет</button>
-</div>
+    <div class="card border-info mb-3" style="border-radius:10px;">
+        <div class="card-header"style="background-color:royalblue; border-top-left-radius:10px; border-top-right-radius:10px;"></div>
+        <div class="card-body">
+            <div class="row" style="margin-left:100px;">
+                <div class="col">
+                    Имя
+                    <p>@ticket.UsersName</p>
+                    Фамилия
+                    <p>@ticket.UsersSurname</p>
+                    Отчество
+                    <p>@ticket.UsersPatronymic</p>
+                </div>
+                <div class="col">
+                    Откуда
+                    <p>@ticket.PointOfDeparture</p>
+                    Куда
+                    <p>@ticket.PointOfDestination</p>
+                    Дата
+                    <p>@ticket.Date.ToString("dd.MM.yyyy") - @ticket.Time.ToString("HH:mm")</p>
+                </div>
+                <div class="col">
+                    Класс полета
+                    <p>@ticket.ClassType</p>
+                    Номер рейса
+                    <p>@ticket.FlightNumber</p>
+                    <button class="btn btn-primary" @onclick="DeleteTicket">Вернуть билет</button>
+                </div>
+
+            </div>
+        </div>
+        <div class="card-footer"style="background-color: royalblue; border-bottom-left-radius: 10px; border-bottom-right-radius:10px;"></div>
+    </div>
+
 
 
 
