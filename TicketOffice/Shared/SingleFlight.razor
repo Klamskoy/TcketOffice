@@ -12,12 +12,20 @@
     {
         @if (CurrentUser != null && CurrentUser.Role != "Администратор")
         {
-            <button class="btn btn-primary" style="margin-left:15px;" @onclick="Buy">Купить</button>
+                if (AlreadyBought)
+                {
+                    <button class="btn btn-primary" style="margin-left:15px;" disabled @onclick="Buy">Купить</button>
+                }
+                else
+                {
+                    <button class="btn btn-primary" style="margin-left:15px;" @onclick="Buy">Купить</button>
+                }
+
         }
     }
     else
     {
-    <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">Купить</button></td>
+<td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">Купить</button></td>
     }
 </td>
 
@@ -27,6 +35,10 @@
     [Parameter] public Flight flight { get; set; }
     public User CurrentUser { get; set; }
     public bool IsUserLogged { get; set; }
+    public bool AlreadyBought { get; set; } = false;
+
+    List<Ticket> tickets = new List<Ticket>();
+
     private void Buy()
     {
 
@@ -45,6 +57,19 @@
     {
         IsUserLogged = await storage.GetItemAsync<bool>("IsUserLogged");
         CurrentUser = await storage.GetItemAsync<User>("CurrentUser");
+        if(IsUserLogged)
+        {
+            var client = new MongoClient("mongodb://localhost");
+            var database = client.GetDatabase("TicketOffice");
+            var collection = database.GetCollection<Ticket>("Tickets").AsQueryable();
+            foreach (var item in collection)
+            {
+                if (item.FlightNumber == flight.FlightNumber && item.UsersName == CurrentUser.Name && item.UsersSurname == CurrentUser.Surname && item.UsersPatronymic == CurrentUser.Patronymic)
+                {
+                    AlreadyBought = true;
+                }
+            }
+        }
 
     }
 }
