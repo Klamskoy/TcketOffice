@@ -18,7 +18,7 @@ namespace TicketOffice.Models
         private DateTime _time;
         private string _classType;
 
-        [JsonConstructor]
+       
         public Flight(string flightnumber, string pointOfDeparture, string pointOfDestination, DateTime date, DateTime time, string classType)
         {
             FlightNumber = flightnumber;

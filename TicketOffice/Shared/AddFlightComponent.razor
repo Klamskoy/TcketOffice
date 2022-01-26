@@ -29,7 +29,7 @@
     </datalist>
     <input type="date" min="@today.ToString("yyyy-MM-dd")" @bind-value="Date"
            style="width: 100%; height: 50px; border: groove; border-radius: 6px; outline: none; text-align: center; margin-bottom: 10px" />
-    <input type="time" min="@today.ToString("hh:mm")" @bind-value="Time" 
+    <input type="time" min="@today.ToString("HH:mm")" @bind-value="Time" 
            style="width: 100%; height: 50px; border:groove; border-radius: 6px; outline:none; text-align: center; margin-bottom: 10px" />
     <input class="form-control form-control-lg" list="datalistOptions3" id="DataList3" placeholder="Класс полёта"
            @bind-value="ClassType" style="margin-bottom: 10px;" />
