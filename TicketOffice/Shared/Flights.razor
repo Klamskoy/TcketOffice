@@ -15,13 +15,16 @@
             </tr>
         </thead>
         <tbody>
+
             @if (searchFlight != null)
             {
                 FillSearchingFlightsList(searchFlight);
-                @if(searchingFlightsList.Count == 0)
+
+                @if (searchingFlightsList.Count == 0)
                 {
                     navManager.NavigateTo("search-error");
                 }
+
                 @foreach (var item in searchingFlightsList)
                 {
                     <tr>
@@ -31,6 +34,7 @@
 
                 storage.RemoveItemAsync("SearchFlight");
             }
+
             else
             {
                 @foreach (var item in flightsList)
@@ -96,11 +100,169 @@
         var collection = database.GetCollection<Flight>("Flights").AsQueryable();
         foreach (var item in collection)
         {
-            if (item.PointOfDeparture == searchFlight.PointOfDeparture || item.PointOfDestination == searchFlight.PointOfDestination || item.Date == searchFlight.Date || item.ClassType == searchFlight.ClassType)
+            if (searchFlight.PointOfDeparture != null)
             {
-                searchingFlightsList.Add(new Flight(item.FlightNumber, item.PointOfDeparture, item.PointOfDestination, item.Date, item.Time, item.ClassType));
+                if (searchFlight.PointOfDestination != null)
+                {
+                    if (searchFlight.Date != DateTime.MinValue)
+                    {
+                        if (searchFlight.ClassType != null)
+                        {
+                            if (item.PointOfDeparture == searchFlight.PointOfDeparture && item.PointOfDestination == searchFlight.PointOfDestination && item.Date == searchFlight.Date && item.ClassType == searchFlight.ClassType)
+                            {
+                                searchingFlightsList.Add(new Flight(item.FlightNumber, item.PointOfDeparture, item.PointOfDestination, item.Date, item.Time, item.ClassType));
+                            }
+                        }
+
+                        else
+                        {
+                            if (item.PointOfDeparture == searchFlight.PointOfDeparture && item.PointOfDestination == searchFlight.PointOfDestination && item.Date == searchFlight.Date)
+                            {
+                                searchingFlightsList.Add(new Flight(item.FlightNumber, item.PointOfDeparture, item.PointOfDestination, item.Date, item.Time, item.ClassType));
+                            }
+                        }
+                    }
+
+                    else
+                    {
+                        if (searchFlight.ClassType != null)
+                        {
+                            if (item.PointOfDeparture == searchFlight.PointOfDeparture && item.PointOfDestination == searchFlight.PointOfDestination && item.ClassType == searchFlight.ClassType)
+                            {
+                                searchingFlightsList.Add(new Flight(item.FlightNumber, item.PointOfDeparture, item.PointOfDestination, item.Date, item.Time, item.ClassType));
+                            }
+                        }
+
+                        else
+                        {
+                            if (item.PointOfDeparture == searchFlight.PointOfDeparture && item.PointOfDestination == searchFlight.PointOfDestination)
+                            {
+                                searchingFlightsList.Add(new Flight(item.FlightNumber, item.PointOfDeparture, item.PointOfDestination, item.Date, item.Time, item.ClassType));
+                            }
+                        }
+                    }
+                }
+
+                else
+                {
+                    if (searchFlight.Date != DateTime.MinValue)
+                    {
+                        if (searchFlight.ClassType != null)
+                        {
+                            if (item.PointOfDeparture == searchFlight.PointOfDeparture && item.Date == searchFlight.Date && item.ClassType == searchFlight.ClassType)
+                            {
+                                searchingFlightsList.Add(new Flight(item.FlightNumber, item.PointOfDeparture, item.PointOfDestination, item.Date, item.Time, item.ClassType));
+                            }
+                        }
+
+                        else
+                        {
+                            if (item.PointOfDeparture == searchFlight.PointOfDeparture && item.Date == searchFlight.Date)
+                            {
+                                searchingFlightsList.Add(new Flight(item.FlightNumber, item.PointOfDeparture, item.PointOfDestination, item.Date, item.Time, item.ClassType));
+                            }
+                        }
+                    }
+
+                    else
+                    {
+                        if (searchFlight.ClassType != null)
+                        {
+                            if (item.PointOfDeparture == searchFlight.PointOfDeparture && item.ClassType == searchFlight.ClassType)
+                            {
+                                searchingFlightsList.Add(new Flight(item.FlightNumber, item.PointOfDeparture, item.PointOfDestination, item.Date, item.Time, item.ClassType));
+                            }
+                        }
+
+                        else
+                        {
+                            if (item.PointOfDeparture == searchFlight.PointOfDeparture)
+                            {
+                                searchingFlightsList.Add(new Flight(item.FlightNumber, item.PointOfDeparture, item.PointOfDestination, item.Date, item.Time, item.ClassType));
+                            }
+                        }
+                    }
+
+
+                }
+            }
+
+            else
+            {
+                if (searchFlight.PointOfDestination != null)
+                {
+                    if (searchFlight.Date != DateTime.MinValue)
+                    {
+                        if (searchFlight.ClassType != null)
+                        {
+                            if (item.PointOfDestination == searchFlight.PointOfDestination && item.Date == searchFlight.Date && item.ClassType == searchFlight.ClassType)
+                            {
+                                searchingFlightsList.Add(new Flight(item.FlightNumber, item.PointOfDeparture, item.PointOfDestination, item.Date, item.Time, item.ClassType));
+                            }
+                        }
+
+                        else
+                        {
+                            if (item.PointOfDestination == searchFlight.PointOfDestination && item.Date == searchFlight.Date)
+                            {
+                                searchingFlightsList.Add(new Flight(item.FlightNumber, item.PointOfDeparture, item.PointOfDestination, item.Date, item.Time, item.ClassType));
+                            }
+                        }
+                    }
+
+                    else
+                    {
+                        if (searchFlight.ClassType != null)
+                        {
+                            if (item.PointOfDestination == searchFlight.PointOfDestination && item.ClassType == searchFlight.ClassType)
+                            {
+                                searchingFlightsList.Add(new Flight(item.FlightNumber, item.PointOfDeparture, item.PointOfDestination, item.Date, item.Time, item.ClassType));
+                            }
+                        }
+
+                        else
+                        {
+                            if (item.PointOfDestination == searchFlight.PointOfDestination)
+                            {
+                                searchingFlightsList.Add(new Flight(item.FlightNumber, item.PointOfDeparture, item.PointOfDestination, item.Date, item.Time, item.ClassType));
+                            }
+                        }
+                    }
+                }
+
+                else
+                {
+                    if (searchFlight.Date != DateTime.MinValue)
+                    {
+                        if (searchFlight.ClassType != null)
+                        {
+                            if (item.Date == searchFlight.Date && item.ClassType == searchFlight.ClassType)
+                            {
+                                searchingFlightsList.Add(new Flight(item.FlightNumber, item.PointOfDeparture, item.PointOfDestination, item.Date, item.Time, item.ClassType));
+                            }
+                        }
+
+                        else
+                        {
+                            if (item.Date == searchFlight.Date)
+                            {
+                                searchingFlightsList.Add(new Flight(item.FlightNumber, item.PointOfDeparture, item.PointOfDestination, item.Date, item.Time, item.ClassType));
+                            }
+                        }
+                    }
+
+                    else
+                    {
+                        if (searchFlight.ClassType != null)
+                        {
+                            if (item.ClassType == searchFlight.ClassType)
+                            {
+                                searchingFlightsList.Add(new Flight(item.FlightNumber, item.PointOfDeparture, item.PointOfDestination, item.Date, item.Time, item.ClassType));
+                            }
+                        }
+                    }
+                }
             }
         }
     }
-
 }
