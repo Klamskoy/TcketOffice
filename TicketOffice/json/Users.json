@@ -1,0 +1,94 @@
+[{
+  "_id": {
+    "$oid": "61d7e6e46e76bc59d15365da"
+  },
+  "Login": "admin",
+  "Password": "admin",
+  "Name": "admin",
+  "Surname": "admin",
+  "Patronymic": "admin",
+  "DayOfBirth": {
+    "$date": "1989-01-13T21:00:00Z"
+  },
+  "Role": "Администратор"
+},{
+  "_id": {
+    "$oid": "61ee6944d9754be5115469cb"
+  },
+  "Login": "user1",
+  "Password": "user1",
+  "Name": "Семен",
+  "Surname": "Иванов",
+  "Patronymic": "Викторович",
+  "DayOfBirth": {
+    "$date": {
+      "$numberLong": "-19972800000"
+    }
+  },
+  "Role": "Пользователь"
+},{
+  "_id": {
+    "$oid": "61ee69b0d9754be5115469cc"
+  },
+  "Login": "user2",
+  "Password": "user2",
+  "Name": "Антон",
+  "Surname": "Петров",
+  "Patronymic": "Геннадьевич",
+  "DayOfBirth": {
+    "$date": "1978-10-06T20:00:00Z"
+  },
+  "Role": "Пользователь"
+},{
+  "_id": {
+    "$oid": "61ee69ced9754be5115469cd"
+  },
+  "Login": "user3",
+  "Password": "user3",
+  "Name": "Дмитрий",
+  "Surname": "Кузнецов",
+  "Patronymic": "Павлович",
+  "DayOfBirth": {
+    "$date": "1983-12-16T21:00:00Z"
+  },
+  "Role": "Пользователь"
+},{
+  "_id": {
+    "$oid": "61ee69e7d9754be5115469ce"
+  },
+  "Login": "user4",
+  "Password": "user4",
+  "Name": "Михаил",
+  "Surname": "Болтаков",
+  "Patronymic": "Валентинович",
+  "DayOfBirth": {
+    "$date": "1979-08-17T20:00:00Z"
+  },
+  "Role": "Пользователь"
+},{
+  "_id": {
+    "$oid": "61ee6aced9754be5115469cf"
+  },
+  "Login": "user5",
+  "Password": "user5",
+  "Name": "Мария",
+  "Surname": "Прохорова",
+  "Patronymic": "Васильевна",
+  "DayOfBirth": {
+    "$date": "1988-03-15T21:00:00Z"
+  },
+  "Role": "Пользователь"
+},{
+  "_id": {
+    "$oid": "61ee6b0ad9754be5115469d0"
+  },
+  "Login": "user6",
+  "Password": "user6",
+  "Name": "Екатерина",
+  "Surname": "Новикова",
+  "Patronymic": "Алексеевна",
+  "DayOfBirth": {
+    "$date": "1994-06-10T20:00:00Z"
+  },
+  "Role": "Пользователь"
+}]

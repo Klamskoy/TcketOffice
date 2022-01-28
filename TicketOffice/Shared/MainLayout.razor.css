@@ -2,6 +2,7 @@
     position: relative;
     display: flex;
     flex-direction: column;
+    background: linear-gradient(#b3daff 70%, #66b3ff);
 }
 
 .main {
@@ -10,12 +11,13 @@
 }
 
 .sidebar {
-    background-color: #0982de;
+    /*background-color: #1ab2ff;*/
+    background: linear-gradient(to top, #004d99, #1ab2ff);
     /*linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);*/
 }
 
 .top-row {
-    background-color: #f7f7f7;
+    background-color: #1ab2ff;
     border-bottom: 1px solid #d6d5d5;
     justify-content: flex-end;
     height: 3.5rem;

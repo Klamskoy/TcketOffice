@@ -1,0 +1,449 @@
+[{
+  "_id": {
+    "$oid": "61ee6ff6d9754be5115469d1"
+  },
+  "FlightNumber": "AXFG9156",
+  "PointOfDeparture": "Москва",
+  "PointOfDestination": "Анапа",
+  "Date": {
+    "$date": "2022-01-28T21:00:00Z"
+  },
+  "Time": {
+    "$date": "2022-01-24T03:00:00Z"
+  },
+  "ClassType": "Первый класс"
+},{
+  "_id": {
+    "$oid": "61ee7039d9754be5115469d2"
+  },
+  "FlightNumber": "ZGA9326",
+  "PointOfDeparture": "Анапа",
+  "PointOfDestination": "Санкт-Петербург",
+  "Date": {
+    "$date": "2022-01-28T21:00:00Z"
+  },
+  "Time": {
+    "$date": "2022-01-24T05:00:00Z"
+  },
+  "ClassType": "Бизнес-класс"
+},{
+  "_id": {
+    "$oid": "61ee7068d9754be5115469d3"
+  },
+  "FlightNumber": "GHY8523",
+  "PointOfDeparture": "Новосибирск",
+  "PointOfDestination": "Москва",
+  "Date": {
+    "$date": "2022-01-28T21:00:00Z"
+  },
+  "Time": {
+    "$date": "2022-01-24T06:00:00Z"
+  },
+  "ClassType": "Эконом-класс"
+},{
+  "_id": {
+    "$oid": "61ee7083d9754be5115469d4"
+  },
+  "FlightNumber": "NBT8322",
+  "PointOfDeparture": "Сочи",
+  "PointOfDestination": "Казань",
+  "Date": {
+    "$date": "2022-01-28T21:00:00Z"
+  },
+  "Time": {
+    "$date": "2022-01-24T11:00:00Z"
+  },
+  "ClassType": "Бизнес-класс"
+},{
+  "_id": {
+    "$oid": "61ee70ded9754be5115469d5"
+  },
+  "FlightNumber": "PXT9472",
+  "PointOfDeparture": "Новосибирск",
+  "PointOfDestination": "Волгоград",
+  "Date": {
+    "$date": "2022-01-28T21:00:00Z"
+  },
+  "Time": {
+    "$date": "2022-01-24T13:00:00Z"
+  },
+  "ClassType": "Первый класс"
+},{
+  "_id": {
+    "$oid": "61ee712dd9754be5115469d6"
+  },
+  "FlightNumber": "XTU7832",
+  "PointOfDeparture": "Казань",
+  "PointOfDestination": "Сочи",
+  "Date": {
+    "$date": "2022-01-28T21:00:00Z"
+  },
+  "Time": {
+    "$date": "2022-01-24T11:00:00Z"
+  },
+  "ClassType": "Эконом-класс"
+},{
+  "_id": {
+    "$oid": "61ee71956d51424fdbcaed23"
+  },
+  "FlightNumber": "LDX39233",
+  "PointOfDeparture": "Ростов-на-Дону",
+  "PointOfDestination": "Екатеринбург",
+  "Date": {
+    "$date": "2022-01-29T21:00:00Z"
+  },
+  "Time": {
+    "$date": "2022-01-24T12:00:00Z"
+  },
+  "ClassType": "Бизнес-класс"
+},{
+  "_id": {
+    "$oid": "61ee720fc13811ba7b2809b7"
+  },
+  "FlightNumber": "QMS5132",
+  "PointOfDeparture": "Владивосток",
+  "PointOfDestination": "Москва",
+  "Date": {
+    "$date": "2022-01-29T21:00:00Z"
+  },
+  "Time": {
+    "$date": "2022-01-24T17:00:00Z"
+  },
+  "ClassType": "Первый класс"
+},{
+  "_id": {
+    "$oid": "61f2aef09270ac2b22c0f40f"
+  },
+  "FlightNumber": "SGZ6214",
+  "PointOfDeparture": "Краснодар",
+  "PointOfDestination": "Нижний Новгород",
+  "Date": {
+    "$date": "2022-01-30T21:00:00Z"
+  },
+  "Time": {
+    "$date": "2022-01-27T07:00:00Z"
+  },
+  "ClassType": "Бизнес-класс"
+},{
+  "_id": {
+    "$oid": "61f2af0f9270ac2b22c0f410"
+  },
+  "FlightNumber": "LXT2513",
+  "PointOfDeparture": "Волгоград",
+  "PointOfDestination": "Казань",
+  "Date": {
+    "$date": "2022-01-30T21:00:00Z"
+  },
+  "Time": {
+    "$date": "2022-01-27T12:00:00Z"
+  },
+  "ClassType": "Эконом-класс"
+},{
+  "_id": {
+    "$oid": "61f2af299270ac2b22c0f411"
+  },
+  "FlightNumber": "PHX9252",
+  "PointOfDeparture": "Новосибирск",
+  "PointOfDestination": "Владивосток",
+  "Date": {
+    "$date": "2022-01-30T21:00:00Z"
+  },
+  "Time": {
+    "$date": "2022-01-27T15:00:00Z"
+  },
+  "ClassType": "Первый класс"
+},{
+  "_id": {
+    "$oid": "61f2afa29270ac2b22c0f412"
+  },
+  "FlightNumber": "RXO9426",
+  "PointOfDeparture": "Краснодар",
+  "PointOfDestination": "Екатеринбург",
+  "Date": {
+    "$date": "2022-01-30T21:00:00Z"
+  },
+  "Time": {
+    "$date": "2022-01-27T18:00:00Z"
+  },
+  "ClassType": "Первый класс"
+},{
+  "_id": {
+    "$oid": "61f2affc9270ac2b22c0f413"
+  },
+  "FlightNumber": "MNX4629",
+  "PointOfDeparture": "Ростов-на-Дону",
+  "PointOfDestination": "Москва",
+  "Date": {
+    "$date": "2022-01-31T21:00:00Z"
+  },
+  "Time": {
+    "$date": "2022-01-27T05:00:00Z"
+  },
+  "ClassType": "Первый класс"
+},{
+  "_id": {
+    "$oid": "61f2b01b9270ac2b22c0f414"
+  },
+  "FlightNumber": "FHX6523",
+  "PointOfDeparture": "Владивосток",
+  "PointOfDestination": "Краснодар",
+  "Date": {
+    "$date": "2022-01-31T21:00:00Z"
+  },
+  "Time": {
+    "$date": "2022-01-27T09:00:00Z"
+  },
+  "ClassType": "Бизнес-класс"
+},{
+  "_id": {
+    "$oid": "61f2b0329270ac2b22c0f415"
+  },
+  "FlightNumber": "XZS512",
+  "PointOfDeparture": "Екатеринбург",
+  "PointOfDestination": "Казань",
+  "Date": {
+    "$date": "2022-01-31T21:00:00Z"
+  },
+  "Time": {
+    "$date": "2022-01-27T13:00:00Z"
+  },
+  "ClassType": "Эконом-класс"
+},{
+  "_id": {
+    "$oid": "61f2b0689270ac2b22c0f416"
+  },
+  "FlightNumber": "MTR9021",
+  "PointOfDeparture": "Москва",
+  "PointOfDestination": "Санкт-Петербург",
+  "Date": {
+    "$date": "2022-01-31T21:00:00Z"
+  },
+  "Time": {
+    "$date": "2022-01-27T17:00:00Z"
+  },
+  "ClassType": "Эконом-класс"
+},{
+  "_id": {
+    "$oid": "61f2b0999270ac2b22c0f417"
+  },
+  "FlightNumber": "WNT9262",
+  "PointOfDeparture": "Краснодар",
+  "PointOfDestination": "Екатеринбург",
+  "Date": {
+    "$date": "2022-01-26T21:00:00Z"
+  },
+  "Time": {
+    "$date": "2022-01-27T19:00:00Z"
+  },
+  "ClassType": "Первый класс"
+},{
+  "_id": {
+    "$oid": "61f2b0c99270ac2b22c0f418"
+  },
+  "FlightNumber": "TYX2477",
+  "PointOfDeparture": "Екатеринбург",
+  "PointOfDestination": "Волгоград",
+  "Date": {
+    "$date": "2022-02-01T21:00:00Z"
+  },
+  "Time": {
+    "$date": "2022-01-27T06:00:00Z"
+  },
+  "ClassType": "Эконом-класс"
+},{
+  "_id": {
+    "$oid": "61f2b1119270ac2b22c0f419"
+  },
+  "FlightNumber": "RMX451",
+  "PointOfDeparture": "Казань",
+  "PointOfDestination": "Новосибирск",
+  "Date": {
+    "$date": "2022-02-01T21:00:00Z"
+  },
+  "Time": {
+    "$date": "2022-01-27T14:00:00Z"
+  },
+  "ClassType": "Эконом-класс"
+},{
+  "_id": {
+    "$oid": "61f2b1339270ac2b22c0f41a"
+  },
+  "FlightNumber": "GHN9255",
+  "PointOfDeparture": "Санкт-Петербург",
+  "PointOfDestination": "Ростов-на-Дону",
+  "Date": {
+    "$date": "2022-02-01T21:00:00Z"
+  },
+  "Time": {
+    "$date": "2022-01-27T19:00:00Z"
+  },
+  "ClassType": "Эконом-класс"
+},{
+  "_id": {
+    "$oid": "61f2b19f9270ac2b22c0f41b"
+  },
+  "FlightNumber": "QGN96523",
+  "PointOfDeparture": "Москва",
+  "PointOfDestination": "Анапа",
+  "Date": {
+    "$date": "2022-02-02T21:00:00Z"
+  },
+  "Time": {
+    "$date": "2022-01-27T05:00:00Z"
+  },
+  "ClassType": "Первый класс"
+},{
+  "_id": {
+    "$oid": "61f2b2089270ac2b22c0f41c"
+  },
+  "FlightNumber": "NKX8785",
+  "PointOfDeparture": "Нижний Новгород",
+  "PointOfDestination": "Краснодар",
+  "Date": {
+    "$date": "2022-02-02T21:00:00Z"
+  },
+  "Time": {
+    "$date": "2022-01-27T10:00:00Z"
+  },
+  "ClassType": "Эконом-класс"
+},{
+  "_id": {
+    "$oid": "61f2b2249270ac2b22c0f41d"
+  },
+  "FlightNumber": "XZS9572",
+  "PointOfDeparture": "Новосибирск",
+  "PointOfDestination": "Ростов-на-Дону",
+  "Date": {
+    "$date": "2022-02-02T21:00:00Z"
+  },
+  "Time": {
+    "$date": "2022-01-27T16:00:00Z"
+  },
+  "ClassType": "Эконом-класс"
+},{
+  "_id": {
+    "$oid": "61f2b26a9270ac2b22c0f41e"
+  },
+  "FlightNumber": "HXX4218",
+  "PointOfDeparture": "Анапа",
+  "PointOfDestination": "Нижний Новгород",
+  "Date": {
+    "$date": "2022-02-02T21:00:00Z"
+  },
+  "Time": {
+    "$date": "2022-01-27T20:00:00Z"
+  },
+  "ClassType": "Эконом-класс"
+},{
+  "_id": {
+    "$oid": "61f2b29a9270ac2b22c0f41f"
+  },
+  "FlightNumber": "APX8892",
+  "PointOfDeparture": "Казань",
+  "PointOfDestination": "Анапа",
+  "Date": {
+    "$date": "2022-02-03T21:00:00Z"
+  },
+  "Time": {
+    "$date": "2022-01-27T07:00:00Z"
+  },
+  "ClassType": "Эконом-класс"
+},{
+  "_id": {
+    "$oid": "61f2b2e39270ac2b22c0f420"
+  },
+  "FlightNumber": "ZXQ2984",
+  "PointOfDeparture": "Казань",
+  "PointOfDestination": "Нижний Новгород",
+  "Date": {
+    "$date": "2022-02-03T21:00:00Z"
+  },
+  "Time": {
+    "$date": "2022-01-27T12:00:00Z"
+  },
+  "ClassType": "Бизнес-класс"
+},{
+  "_id": {
+    "$oid": "61f2b3049270ac2b22c0f421"
+  },
+  "FlightNumber": "PXB4912",
+  "PointOfDeparture": "Новосибирск",
+  "PointOfDestination": "Москва",
+  "Date": {
+    "$date": "2022-02-03T21:00:00Z"
+  },
+  "Time": {
+    "$date": "2022-01-27T16:00:00Z"
+  },
+  "ClassType": "Эконом-класс"
+},{
+  "_id": {
+    "$oid": "61f2b3189270ac2b22c0f422"
+  },
+  "FlightNumber": "MST2490",
+  "PointOfDeparture": "Краснодар",
+  "PointOfDestination": "Санкт-Петербург",
+  "Date": {
+    "$date": "2022-02-03T21:00:00Z"
+  },
+  "Time": {
+    "$date": "2022-01-27T19:00:00Z"
+  },
+  "ClassType": "Бизнес-класс"
+},{
+  "_id": {
+    "$oid": "61f2b33f9270ac2b22c0f423"
+  },
+  "FlightNumber": "LVC027",
+  "PointOfDeparture": "Москва",
+  "PointOfDestination": "Волгоград",
+  "Date": {
+    "$date": "2022-02-04T21:00:00Z"
+  },
+  "Time": {
+    "$date": "2022-01-27T06:00:00Z"
+  },
+  "ClassType": "Эконом-класс"
+},{
+  "_id": {
+    "$oid": "61f2b3519270ac2b22c0f424"
+  },
+  "FlightNumber": "RXIS2937",
+  "PointOfDeparture": "Екатеринбург",
+  "PointOfDestination": "Казань",
+  "Date": {
+    "$date": "2022-02-04T21:00:00Z"
+  },
+  "Time": {
+    "$date": "2022-01-27T09:00:00Z"
+  },
+  "ClassType": "Эконом-класс"
+},{
+  "_id": {
+    "$oid": "61f2b36a9270ac2b22c0f425"
+  },
+  "FlightNumber": "ZGD7322",
+  "PointOfDeparture": "Владивосток",
+  "PointOfDestination": "Сочи",
+  "Date": {
+    "$date": "2022-02-04T21:00:00Z"
+  },
+  "Time": {
+    "$date": "2022-01-27T12:00:00Z"
+  },
+  "ClassType": "Эконом-класс"
+},{
+  "_id": {
+    "$oid": "61f2b3a29270ac2b22c0f426"
+  },
+  "FlightNumber": "ZGW5223",
+  "PointOfDeparture": "Санкт-Петербург",
+  "PointOfDestination": "Волгоград",
+  "Date": {
+    "$date": "2022-02-04T21:00:00Z"
+  },
+  "Time": {
+    "$date": "2022-01-27T18:00:00Z"
+  },
+  "ClassType": "Эконом-класс"
+}]
