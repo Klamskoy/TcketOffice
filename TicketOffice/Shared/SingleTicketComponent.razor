@@ -1,6 +1,6 @@
 ﻿@inject NavigationManager navManager
     <div class="card border-info mb-3" style="border-radius:10px;">
-        <div class="card-header"style="background-color:royalblue; border-top-left-radius:10px; border-top-right-radius:10px;"></div>
+        <div class="card-header ticket-card-header"/>
         <div class="card-body">
             <div class="row" style="margin-left:100px;">
                 <div class="col">
@@ -29,11 +29,8 @@
 
             </div>
         </div>
-        <div class="card-footer"style="background-color: royalblue; border-bottom-left-radius: 10px; border-bottom-right-radius:10px;"></div>
+        <div class="card-footer ticket-card-footer"/>
     </div>
-
-
-
 
 @code {
     [Parameter] public Ticket ticket { get; set; }

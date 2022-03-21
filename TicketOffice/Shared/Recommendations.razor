@@ -1,12 +1,11 @@
 ﻿@page "/recommendations"
-<div class="row" style="display: flex; flex-wrap: wrap">
-     
-     @foreach(var item in citiesList)
-            {
-               <CityCardComponent city="item"></CityCardComponent>
-            }
+<div class="row all-recommendations">
 
-    </div>
+     @foreach(var item in citiesList)
+     {
+        <CityCardComponent city="item"></CityCardComponent>
+     }
+</div>
 
 @code {
     List<City> citiesList = new List<City>();
@@ -20,7 +19,6 @@
         {
             City city = new City(item.Name, item.Description, item.ImageInBase64);
             citiesList.Add(city);
-
         }
     }
 }

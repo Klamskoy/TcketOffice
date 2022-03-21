@@ -98,6 +98,8 @@
         var client = new MongoClient("mongodb://localhost");
         var database = client.GetDatabase("TicketOffice");
         var collection = database.GetCollection<Flight>("Flights").AsQueryable();
+
+        //логика поиска рейсов по критериям, заданным на главном экране
         foreach (var item in collection)
         {
             if (searchFlight.PointOfDeparture != null)

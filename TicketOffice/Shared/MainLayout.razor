@@ -44,20 +44,15 @@
             }
                 
                 <h3 style="margin-left:10px;">Логин:</h3>
-                <input class="form-control form-control-lg" type="text" style="margin-bottom: 10px; height: 35px;"
-                       @bind-value="Login" />
+                <input class="form-control form-control-lg input-field" type="text" @bind-value="Login" />
                 <h3 style="margin-left:10px;">Пароль:</h3>
-                <input type="password" class="form-control form-control-lg" style="margin-bottom: 10px; height: 35px;"
-                       @bind-value="Password" />
+                <input type="password" class="form-control form-control-lg input-field" @bind-value="Password" />
                 <h3 style="margin-left:10px;">Фамилия:</h3>
-                <input class="form-control form-control-lg" type="text" style="margin-bottom: 10px; height: 35px;"
-                       @bind-value="Surname" />
+                <input class="form-control form-control-lg input-field" type="text" @bind-value="Surname" />
                 <h3 style="margin-left:10px;">Имя:</h3>
-                <input class="form-control form-control-lg" type="text" style="margin-bottom: 10px; height: 35px;"
-                       @bind-value="Name" />
+                <input class="form-control form-control-lg input-field" type="text" @bind-value="Name" />
                 <h3 style="margin-left:10px;">Отчество:</h3>
-                <input class="form-control form-control-lg" type="text" style="margin-bottom:10px;height:35px;"
-                       @bind-value="Patronymic" />
+                <input class="form-control form-control-lg input-field" type="text" @bind-value="Patronymic" />
                 <h3 style="margin-left:10px;">Дата рождения:</h3>
                 <RadzenDatePicker @bind-Value="DayOfBirth" DateFormat="d" Style="width:100%;height:50px;" />
             </div>
@@ -65,7 +60,6 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @onclick="ToClose">Закрыть</button>
                     <button type="button" class="btn btn-primary" @onclick="ToRegister">Зарегистрироваться</button>
                 </div>
-
         </div>
     </div>
 </div>
@@ -84,25 +78,20 @@
                     </div>
                 }
                 <h3 style="margin-left:10px;">Логин:</h3>
-                <input class="form-control form-control-lg" type="text" style="margin-bottom: 10px; height: 35px;"
-                       @bind-value="Login" />
+                <input class="form-control form-control-lg input-field" type="text" @bind-value="Login" />
                 <h3 style="margin-left:10px;">Пароль:</h3>
-                <input type="password" class="form-control form-control-lg" style="margin-bottom: 10px; height: 35px;"
-                       @bind-value="Password"/>
+                <input type="password" class="form-control form-control-lg input-field" @bind-value="Password"/>
             </div>
 
             <div class="modal-footer">
-                <button class="btn btn-primary" data-bs-target="#staticBackdrop" data-bs-toggle="modal"
-                        style=" margin-right:70px;">
-                    Регистрация
-                </button>
+                <button class="btn btn-primary" data-bs-target="#staticBackdrop" data-bs-toggle="modal" style=" margin-right:70px;">Регистрация</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @onclick="ToClose">Закрыть</button>
                 <button type="button" class="btn btn-primary" @onclick="ToLogin">Войти</button>
             </div>
-
         </div>
     </div>
 </div>
+
 @code{
     public static bool IsUserLogged { get; set; }
     public string Login { get; set; } = "";
@@ -133,6 +122,7 @@
             navManager.NavigateTo("/", true);
         }
     }
+
     public async Task ToLogin()
     {
         var client = new MongoClient("mongodb://localhost");
@@ -155,6 +145,7 @@
         }
 
     }
+
     async Task Logout()
     {
         await storage.SetItemAsync<bool>("IsUserLogged", false);
